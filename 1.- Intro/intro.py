@@ -94,3 +94,9 @@ lista_alumnos = [
 ]
 
 #¿Cómo eliminamos de la lista de cursos MERN para Pedro?
+lista_alumnos[2]["cursos"].pop(2)
+print(lista_alumnos)
+
+#Impresión Bonita
+from pprint import pprint #pretty print
+pprint(lista_alumnos)
