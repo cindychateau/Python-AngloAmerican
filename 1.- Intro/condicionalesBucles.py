@@ -99,11 +99,25 @@ for caracter in texto:
 
 #RETO INDIVIDUAL
 #Dado el for 1 al 15, imprime todos los numeros EXCEPTO aquellos múltiples de 5
+for x in range(1, 16):
+    if x % 5 == 0: #Múltiple de 5
+        continue
+    print(x)
+
+for x in range(1, 16):
+    if x == 5 or x == 10 or x == 15:
+        continue
+    print(x) 
 
 
 #Dada una cadena, imprima cada uno de los caracteres y que se detenga POR COMPLETO si encuentra un . (PUNTO)
-cadena = "Hola, buenos dias. Como estas"
-
-
+cadena1 = "Hola, buenos dias. Como estas"
+cadena2 = "Hola."
+for i in range(len(cadena1)):
+    caracter1 = cadena1[i]
+    caracter2 = cadena2[i]
+    if caracter1 == "." or caracter2 == ".":
+        break
+    print(caracter1)
 
 
