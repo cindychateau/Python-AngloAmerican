@@ -10,12 +10,13 @@ class Persona:
     #juana.apellido = "De Arco"
     #juana.email = "juana@codingdojo.com"
     #juana.lineas_codigo = 0
-    def __init__(self, nombre, apellido, email):
+    def __init__(self, nombre, apellido, email, hobbies):
         self.nombre = nombre
         self.apellido = apellido
         self.email = email
         self.lineas_codigo = 0 #lineas de codigo que han desarrollado
         self.edad = 18
+        self.hobbies = hobbies
     
     #self - la instancia que está llamando al método
     def saludar(self):
