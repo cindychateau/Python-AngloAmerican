@@ -40,7 +40,8 @@ class Usuario:
     def mostrar_balance_usuario(self):
         #print(f'Usuario: {self.name}, Balance: ${self.balance_cuenta}')
         print(f'Usuario:{self.name}')
-        self.cuenta.mostrar_info_cuenta()
+        self.cuentas['ahorros'].mostrar_info_cuenta()
+        self.cuentas['cheques'].mostrar_info_cuenta()
     
     #self: el que manda transfer
     #other_user: recibe transferencia

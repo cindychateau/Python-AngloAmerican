@@ -17,6 +17,8 @@ CuentaBancaria.imprimir_todas_cuentas()
 elena = Usuario("Elena de Troya", "elena@codingdojo.com") 
 #elena.cuenta.depósito(100)
 elena.hacer_depósito(100, "ahorros")
+elena.hacer_depósito(100, "cheques")
+elena.mostrar_balance_usuario()
 
 #elena.cuentas["ahorros"].depósito(100)
 
