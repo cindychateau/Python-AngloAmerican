@@ -7,3 +7,6 @@ class Animal:
     
     def hacer_sonido(self):
         print(f'El/La {self.tipo} dice: {self.sonido}')
+    
+    def comer(self):
+        print(f'El animalito está comiendo')

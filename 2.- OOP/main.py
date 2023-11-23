@@ -1,6 +1,8 @@
 #Importación de la clase
 from Persona import Persona
 from Animal import Animal
+from Gato import Gato
+from Perro import Perro
 
 miu = Animal("gato", "Miusita", "miau")
 michi = Animal("gato", "Michigan", "purrr")
@@ -39,3 +41,12 @@ print(elena.mascota.nombre)
 # elena.mascota.tipo = "vaquita"
 # elena.mascota.sonido = "muuuuu"
 elena.mascota.hacer_sonido()
+
+garfield = Gato("gato", "Garfield", "¡Quiero lasaña!", "corto", "Gato Naranja")
+
+garfield.hacer_sonido()
+garfield.razcar_sofa()
+#firulais.razcar_sofa()
+
+scooby_do = Perro("perro", "Scooby Doo", "¡Dame una scooby galleta", "Gran Danés", 4)
+scooby_do.perseguir_autos()
