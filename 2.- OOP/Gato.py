@@ -9,3 +9,10 @@ class Gato(Animal):
     
     def razcar_sofa(self):
         print(f'{self.nombre} está razcando el sofá de su casa')
+
+    #Sobreescritura/Anulación
+    def hacer_sonido(self):
+        print(f'El gato te ve un momento, se aleja de ti y después dice: {self.sonido}')
+    
+    def ir_al_baño(self):
+        print(f'Va a su caja, razca la arena y va al baño')

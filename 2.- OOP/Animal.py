@@ -10,3 +10,6 @@ class Animal:
     
     def comer(self):
         print(f'El animalito está comiendo')
+    
+    def ir_al_baño(self):
+        raise NotImplementedError

@@ -8,3 +8,6 @@ class Perro(Animal):
     
     def perseguir_autos(self):
         print(f'{self.nombre} está persiguiendo un auto!')
+    
+    def ir_al_baño(self):
+        print(f'Sale a pasear, va al baño y su dueño recoge los desechos')

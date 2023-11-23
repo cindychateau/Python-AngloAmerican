@@ -50,3 +50,6 @@ garfield.razcar_sofa()
 
 scooby_do = Perro("perro", "Scooby Doo", "¡Dame una scooby galleta", "Gran Danés", 4)
 scooby_do.perseguir_autos()
+
+garfield.ir_al_baño()
+scooby_do.ir_al_baño()
