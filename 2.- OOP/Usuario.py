@@ -1,16 +1,22 @@
-class Usuario:		
+class Usuario:	
     
+    #Atributo de Clase: En un atributo perteneciente a la clase completa y que el valor es compartido por todas las instancias
+    banco = "Banco de Chile"
+    lista_usuarios = [] #[guido, monty, elena]
+
+
     def __init__(self, name, email):
         self.name = name
         self.email = email
         self.balance_cuenta = 0
+        Usuario.lista_usuarios.append(self)
     #self = guido
     #amount = 20
     #guido.balance_cuenta = 120
     def hacer_depósito(self, amount):
-    	self.balance_cuenta += amount	# la cuenta del usuario específico aumenta en la cantidad del valor recibido
+        self.balance_cuenta += amount
         return self
-    
+
     def hacer_retiro(self, amount):
         self.balance_cuenta -= amount
         return self
@@ -31,3 +37,19 @@ class Usuario:
         self.balance_cuenta -= amount
         other_user.balance_cuenta += amount
         print(f"[!] El Usuario {self.name} hizo una transferencia de ${amount} a {other_user.name}")
+    
+    #Método que pertenece a mi clase y que llama o hace referencia a atributos de la clase. NO INSTANCIA
+    @classmethod
+    def muestra_usuarios(cls):
+        for usuario in cls.lista_usuarios:
+            es_millonario = Usuario.millonario(usuario.balance_cuenta)
+
+            print(f'{usuario.name} - {usuario.email}: {usuario.balance_cuenta}, es millonario? {es_millonario}')
+    
+    #Métodos Estáticos: Acción/Método que quiero realizar PERO que no pertenece ni a instancia ni a clase. Ayudar/Organizar nuestro código
+    @staticmethod
+    def millonario(dinero):
+        if dinero > 100:
+            return True
+        else:
+            return False

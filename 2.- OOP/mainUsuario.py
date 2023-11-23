@@ -35,3 +35,19 @@ elena.hacer_depósito(100).hacer_depósito(50).hacer_retiro(10)
 #elena.hacer_depósito(50)
 #elena.hacer_retiro(10)
 #elena
+
+print(elena.banco)
+print(monty.banco)
+print(guido.banco)
+
+elena.banco = "Coding Dojo"
+print(elena.banco)
+print(monty.banco)
+print(guido.banco)
+
+Usuario.banco = "Coding Dojo"
+print(elena.banco)
+print(monty.banco)
+print(guido.banco)
+
+Usuario.muestra_usuarios()
