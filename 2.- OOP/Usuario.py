@@ -1,3 +1,4 @@
+from CuentaBancaria import CuentaBancaria
 class Usuario:	
     
     #Atributo de Clase: En un atributo perteneciente a la clase completa y que el valor es compartido por todas las instancias
@@ -8,22 +9,38 @@ class Usuario:
     def __init__(self, name, email):
         self.name = name
         self.email = email
-        self.balance_cuenta = 0
+        self.cuentas = {
+            "ahorros": CuentaBancaria(.02, 0),
+            "cheques": CuentaBancaria(.01, 0)
+        }
         Usuario.lista_usuarios.append(self)
     #self = guido
     #amount = 20
     #guido.balance_cuenta = 120
-    def hacer_depósito(self, amount):
-        self.balance_cuenta += amount
+    #tipo = "ahorros" | "cheques"
+    def hacer_depósito(self, amount, tipo):
+        if tipo == "ahorros":
+            self.cuentas["ahorros"].depósito(amount)
+        else:
+            self.cuentas["cheques"].depósito(amount)
+        #self.cuenta.depósito(amount)
+        #self.balance_cuenta += amount
         return self
 
-    def hacer_retiro(self, amount):
-        self.balance_cuenta -= amount
+    def hacer_retiro(self, amount, tipo):
+        if tipo == "ahorros":
+            self.cuentas['ahorros'].retiro(amount)
+        else:
+            self.cuentas['cheques'].retiro(amount)
+        #self.balance_cuenta -= amount
+        #self.cuenta.retiro(amount)
         return self
     
     #self = guido
     def mostrar_balance_usuario(self):
-        print(f'Usuario: {self.name}, Balance: ${self.balance_cuenta}')
+        #print(f'Usuario: {self.name}, Balance: ${self.balance_cuenta}')
+        print(f'Usuario:{self.name}')
+        self.cuenta.mostrar_info_cuenta()
     
     #self: el que manda transfer
     #other_user: recibe transferencia
