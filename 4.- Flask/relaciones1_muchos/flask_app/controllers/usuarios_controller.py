@@ -12,9 +12,11 @@ def index():
     #PENDIENTE: Obtener todos los usuarios
     return render_template('index.html') #PENDIENTE: enviar los usuarios
 
+#Formulario: 2 rutas. 1.- MOSTRAR formulario. 2.- Recibir la info y guardarla
 @app.route('/nuevo')
 def nuevo():
-    #PENDIENTE
-    return render_template('nuevo.html')
+    #Obtener todos los salones. Lista
+    salones = Salon.muestra_salones() #Lista de instancias de salón
+    return render_template('nuevo.html', salones=salones)
 
 #PENDIENTE: Ruta que Recibe el formulario y guarda
