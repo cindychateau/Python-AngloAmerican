@@ -19,7 +19,14 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- PENDIENTE: Usuarios -->
+                <!-- Usuarios -->
+                {%for usuario in usuarios %}
+                    <tr>
+                        <td>{{usuario.nombre_completo}}</td>
+                        <td>{{usuario.email}}</td>
+                        <td>{{usuario.nombre_salon}}</td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
