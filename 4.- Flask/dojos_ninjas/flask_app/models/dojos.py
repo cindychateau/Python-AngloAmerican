@@ -36,5 +36,24 @@ class Dojo:
         result = connectToMySQL('esquema_dojos_ninjas').query_db(query, formulario)
         return result
 
-    
-
+    @classmethod
+    def get_dojo_with_ninjas(cls, data):
+        #data = {"id": 1}
+        query = "SELECT * FROM dojos LEFT JOIN ninjas ON ninjas.dojo_id = dojos.id WHERE dojos.id = %(id)s"
+        results = connectToMySQL('esquema_dojos_ninjas').query_db(query, data) #Lista de Diccionarios
+        #POR DEF vamos a tener 1 registro
+        dojo = cls(results[0]) #Creamos instancia de Dojo
+        #dojo.ninjas = []
+        for row in results:
+            ninja = {
+                'id': row['ninjas.id'], #
+                'first_name': row['first_name'],
+                'last_name': row['last_name'],
+                'age': row['age'],
+                'created_at': row['created_at'],
+                'updated_at': row['updated_at'],
+                'dojo_id': row['dojo_id']
+            }
+            instancia_ninja = Ninja(ninja)
+            dojo.ninjas.append(instancia_ninja)
+        return dojo

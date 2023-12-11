@@ -14,7 +14,7 @@ class Ninja:
 
     @classmethod
     def save(cls, formulario):
-        #formulario = {"first_name": "Elena", "last_name": "De Troya", "age": 18, "dojo_id": 1}
+        #formulario = {"first_name":"Elena", "last_name": "De Troya", "age":18, "dojo_id": 1}
         query = "INSERT INTO ninjas (first_name, last_name, age, dojo_id) VALUES (%(first_name)s, %(last_name)s, %(age)s, %(dojo_id)s)"
         result = connectToMySQL('esquema_dojos_ninjas').query_db(query, formulario)
         return result
