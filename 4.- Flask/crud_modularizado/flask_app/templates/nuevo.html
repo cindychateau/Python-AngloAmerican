@@ -10,6 +10,17 @@
     <div class="container">
         <h1>Nuevo Usuario</h1>
         <form class="col-6" action="/crear" method="post">
+            
+            {% with messages = get_flashed_messages(category_filter=['registro']) %}
+                {% if messages %}
+                    <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}    
+
             <div>
                 <label>Nombre</label>
                 <input type="text" class="form-control" name="nombre" >

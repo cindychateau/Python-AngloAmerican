@@ -28,7 +28,11 @@ def nuevo():
 def crear():
     #Recibir el formulario.
     #request.form = {"nombre": "Pablo", "apellido": "Picasso", "email": "pablo@cd.com"}
-    Usuario.guardar(request.form)
+    
+    if not Usuario.valida_usuario(request.form): #Si es falso el is_valid
+        return redirect('/nuevo') #Mostramos de nuevo el formulario
+    else:
+        Usuario.guardar(request.form) #Guardamos
     return redirect('/')
 
 #/borrar/1   /borrar/2

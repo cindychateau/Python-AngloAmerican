@@ -1,4 +1,5 @@
 from flask_app.config.mysqlconnection import connectToMySQL
+from flask import flash #Importamos flash para mandar mensajes de validación
 class Usuario:
 
     def __init__(self, data):
@@ -61,3 +62,28 @@ class Usuario:
         query = "UPDATE usuarios SET nombre=%(nombre)s, apellido=%(apellido)s, email=%(email)s WHERE id=%(id)s"
         result = connectToMySQL('esquema_usuarios_aa').query_db(query, formulario)
         return result
+    
+    @staticmethod
+    def valida_usuario(formulario):
+        is_valid = True #Asumimos que todo en el formulario del usuario es correcto
+
+        if len(formulario['nombre']) < 3:
+            flash('Nombre debe tener al menos 3 caracteres', 'registro')
+            is_valid = False
+        
+        if len(formulario['apellido']) < 3:
+            flash('Apellido debe de tener al menos 3 caracteres', 'registro')
+            is_valid = False
+
+        #Consultar si ya existe ese email en la bd
+        query = "SELECT * FROM usuarios WHERE email = %(email)s"
+        results = connectToMySQL('esquema_usuarios_aa').query_db(query, formulario) #Lista de Diccionarios
+        if len(results) >= 1: #SI EXISTE ya un usuario con ese correo
+            flash('E-mail registrado previamente', 'registro')
+            is_valid = False
+        
+        #PENDIENTE validar email -> ER
+        
+        return is_valid
+        
+        
