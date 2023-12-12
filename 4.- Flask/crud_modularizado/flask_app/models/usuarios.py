@@ -1,5 +1,11 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 from flask import flash #Importamos flash para mandar mensajes de validación
+
+import re #Importando Expresiones Regulares
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') #Patrón de email
+#8 caracteres, 1 mayúscula, 1 minúscula, 1 num, 1 caracter especial
+PASSWORD_REGEX = re.compile(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$')
+
 class Usuario:
 
     def __init__(self, data):
@@ -82,7 +88,10 @@ class Usuario:
             flash('E-mail registrado previamente', 'registro')
             is_valid = False
         
-        #PENDIENTE validar email -> ER
+        #Verificamos con expresiones regulares que el correo tenga el formato correcto
+        if not EMAIL_REGEX.match(formulario['email']):
+            flash('E-mail inválido', 'registro')
+            is_valid = False
         
         return is_valid
         
