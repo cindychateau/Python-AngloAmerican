@@ -12,7 +12,16 @@
             <!-- REGISTRO -->
             <div class="col-6">
                 <h2>Regístrate</h2>
-                <!-- PENDIENTE: MENSAJES DE ERROR -->
+                <!-- MENSAJES DE ERROR -->
+                {% with messages = get_flashed_messages(category_filter=['register']) %}
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
                 <form action="/register" method="post">
                     <div>
                         <label for="first_name_id">Nombre</label>

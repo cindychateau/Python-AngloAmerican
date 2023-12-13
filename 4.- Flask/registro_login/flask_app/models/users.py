@@ -25,4 +25,42 @@ class User:
         result = connectToMySQL('esquema_login').query_db(query, form)
         return result #El ID de nuevo registro que se realizó
     
-    #PENDIENTE: Validar la info que recibimos en el formulario
+    #Validar la info que recibimos en el formulario
+    @staticmethod
+    def validate_user(form):
+        #form = {diccionario con todos los names y valores que el usuario ingresó}
+        is_valid = True #Pretendemos que todo le formulario está llenado correctamente
+
+        #Validamos que el nombre tenga al menos 2 caracteres
+        if len(form['first_name']) < 2:
+            flash('Nombre debe tener al menos 2 caracteres', 'register')
+            is_valid = False
+        
+        #Validamos que el apellido tenga al menos 2 caracteres
+        if len(form['last_name']) < 2:
+            flash('Apellido debe tener al menos 2 caracteres', 'register')
+            is_valid = False
+        
+        #Validamos que el password tenga al menos 6 caracteres
+        if len(form['password']) < 6:
+            flash('Contraseña debe tener al menos 6 caracteres', 'register')
+            is_valid = False
+        
+        #Validamos que el correo sea único
+        query = "SELECT * FROM users WHERE email = %(email)s"
+        results = connectToMySQL('esquema_login').query_db(query, form)
+        if len(results) >=1:
+            flash('E-mail registrado previamente', 'register')
+            is_valid = False
+        
+        #Verificamos que las contraseñas coincidan
+        if form['password'] != form['confirm']:
+            flash('Contraseñas no coinciden', 'register')
+            is_valid = False
+        
+        #Verificamos que el email tenga el formato correcto -> Expresiones Regulares
+        if not EMAIL_REGEX.match(form['email']):
+            flash('E-mail inválido', 'register')
+            is_valid = False
+        
+        return is_valid
