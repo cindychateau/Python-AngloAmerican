@@ -37,8 +37,16 @@ def register():
 
 @app.route('/dashboard')
 def dashboard():
-    #PENDIENTE: Verificar que el usuario haya iniciado sesión
-    return render_template('dashboard.html')
+    #Verificar que el usuario haya iniciado sesión
+    if 'user_id' not in session:
+        flash('Favor de iniciar sesión', 'not_in_session')
+        return redirect('/')
+
+    #Crear una instancia del usuario. ID en sesión (session['user_id'])
+    #Función que en base al ID regrese la instancia del usuario
+    form = {"id": session['user_id']}
+    user = User.get_by_id(form)
+    return render_template('dashboard.html', user=user)
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -58,3 +66,8 @@ def login():
     
     session['user_id'] = user.id #Guardo en mi sesión el id del usuario
     return redirect('/dashboard')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')

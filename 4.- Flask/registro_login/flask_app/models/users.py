@@ -77,3 +77,12 @@ class User:
             #result = [ {"id": 1, "first_name": "Elena", "last_name": "De Troya"......} ]
             user = cls(result[0]) #User({"id": 1, "first_name": "Elena", "last_name": "De Troya"......})
             return user
+    
+    @classmethod
+    def get_by_id(cls, form):
+        #form = {"id": 1}
+        query = "SELECT * FROM users WHERE id = %(id)s"
+        result = connectToMySQL('esquema_login').query_db(query, form) #Lista de diccionarios (que SOLO TIENE posicion 0)
+        #result = [ {"id": 1, "first_name": "Elena", "last_name": "De Troya"......} ]
+        user = cls(result[0])
+        return user
