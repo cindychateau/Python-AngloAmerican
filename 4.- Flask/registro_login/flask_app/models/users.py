@@ -64,3 +64,16 @@ class User:
             is_valid = False
         
         return is_valid
+    
+    @classmethod
+    def get_by_email(cls, form):
+        #form = {"email": "elena@codingdojo.com", "password": "Hola123"}
+        query = "SELECT * FROM users WHERE email = %(email)s"
+        result = connectToMySQL('esquema_login').query_db(query, form) #SELECT me regresa una lista de diccionarios
+        if len(result) < 1: #Significa que mi lista está vacía Y NO existe ese email en mi BD
+            return False
+        else:
+            #Me regresa 1 registro
+            #result = [ {"id": 1, "first_name": "Elena", "last_name": "De Troya"......} ]
+            user = cls(result[0]) #User({"id": 1, "first_name": "Elena", "last_name": "De Troya"......})
+            return user

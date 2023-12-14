@@ -1,3 +1,5 @@
+#Terminal: pipenv install flask pymysql flask-bcrypt
+
 #Importar la app
 from flask_app import app
 

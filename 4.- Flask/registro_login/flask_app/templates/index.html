@@ -10,8 +10,8 @@
     <div class="container">
         <div class="row">
             <!-- REGISTRO -->
-            <div class="col-6">
-                <h2>Regístrate</h2>
+            <div class="col-6 bg-dark text-light">
+                <h2 class="text-center">Regístrate</h2>
                 <!-- MENSAJES DE ERROR -->
                 {% with messages = get_flashed_messages(category_filter=['register']) %}
                     {% if messages %}
@@ -22,7 +22,7 @@
                         </div>
                     {% endif %}
                 {% endwith %}
-                <form action="/register" method="post">
+                <form action="/register" method="post" class="p-5">
                     <div>
                         <label for="first_name_id">Nombre</label>
                         <input id="first_name_id" type="text" class="form-control" name="first_name" >
@@ -48,8 +48,29 @@
             </div>
 
             <!-- INICIO DE SESIÓN -->
-            <div class="col-6">
-
+            <div class="col-6 bg-info">
+                <h2 class="text-center">Inicia Sesión</h2>
+                <!-- MENSAJES DE ERROR -->
+                {% with messages = get_flashed_messages(category_filter=['login']) %}
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                            {% for message in messages %}
+                                <p>{{message}}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <form action="/login" method="post" class="p-5">
+                    <div>
+                        <label for="email2">E-mail</label>
+                        <input type="email" class="form-control" id="email2" name="email" >
+                    </div>
+                    <div>
+                        <label for="password2">Contraseña</label>
+                        <input type="password" class="form-control" id="password2" name="password" >
+                    </div>
+                    <input type="submit" value="Inicia Sesión" class="btn btn-primary mt-3" >
+                </form>
             </div>
         </div>
     </div>
