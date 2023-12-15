@@ -47,7 +47,14 @@ def dashboard():
     #Función que en base al ID regrese la instancia del usuario
     form = {"id": session['user_id']}
     user = User.get_by_id(form)
-    return render_template('dashboard.html', user=user)
+
+    #Lista con todos los mensajes que el usuario recibió
+    messages = Message.get_my_messages(form)
+
+    #Lista con todos los usuarios
+    all_users = User.get_all()
+
+    return render_template('dashboard.html', user=user, all_users=all_users, messages=messages)
 
 @app.route('/login', methods=['POST'])
 def login():

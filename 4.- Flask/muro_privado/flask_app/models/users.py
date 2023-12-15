@@ -83,3 +83,13 @@ class User:
         #result = [ {"id": 1, "first_name": "Elena", "last_name": "De Troya"......} ]
         user = cls(result[0])
         return user
+    
+    @classmethod
+    def get_all(cls):
+        query = "SELECT * FROM users ORDER BY first_name ASC" #ASC:A-Z 1-10000    DESC: Z-A 10000-1
+        results = connectToMySQL('esquema_muroprivado').query_db(query) #Regresa lista de diccionarios
+        users = []
+        for u in results:
+            #u = {"id": 1, "first_name": "Juana".......}
+            users.append(cls(u)) #1.- cls(u) Crea una instancia en base al diccionario. 1.- users.append Agrega la instancia a la lista users
+        return users #Lista de instancias de user

@@ -13,6 +13,44 @@
             <h2>Muro Privado</h2>
             <a href="/logout" class="btn btn-danger">Cerrar Sesión</a>
         </header>
+        <hr>
+        <div class="row">
+            <!-- Mis mensajes -->
+            <div class="col-6">
+                <h2>Mensajes Recibidos</h2>
+                <h5>{{messages|length}} mensajes para ti</h5>
+                {% for message in messages %}
+                    <div class="card mb-4">
+                        <div class="card-header">{{message.sender_name}}</div>
+                        <div class="card-body">{{message.content}}</div>
+                        <div class="card-footer">
+                            <a href="/delete_message/{{message.id}}" class="btn btn-danger">Borrar</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <!-- Enviar mensajes -->
+            <div class="col-6">
+                <h2>Mandar Mensajes</h2>
+                {% for u in all_users %}
+
+                    {% if u.id != session['user_id'] %}
+
+                        <form action="/send_message" method="post">
+                            <label>Mensaje para {{u.first_name}} </label>
+                            <textarea class="form-control" name="content"></textarea>
+
+                            <input type="hidden" name="sender_id" value="{{session['user_id']}}" >
+                            <input type="hidden" name="receiver_id" value="{{u.id}}" >
+
+                            <input type="submit" value="Enviar Mensaje" class="btn btn-success mt-3">
+                        </form>
+                        <hr>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </body>
 </html>
