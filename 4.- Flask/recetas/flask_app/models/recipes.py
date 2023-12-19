@@ -57,3 +57,15 @@ class Recipe:
             #recipe = diccionario
             recipes.append(cls(recipe)) #1.- cls(recipe) crea la instancia con la info del diccionario. 2.- Agregamos la instancia a la lista de recetas
         return recipes
+    
+    @classmethod
+    def get_by_id(cls, data):
+        #data = {"id": 1}
+        query = "SELECT recipes.*, users.first_name FROM recipes JOIN users ON user_id = users.id WHERE recipes.id = %(id)s" 
+        result = connectToMySQL('esquema_recetas_aa').query_db(query, data) #Lista de diccionarios
+        #result = [
+        #   {"id": 1, "name": "Albondigas", "description": "albondigas ricas"}
+        #]
+        recipe = cls(result[0])
+        return recipe
+

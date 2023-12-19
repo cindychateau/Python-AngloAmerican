@@ -24,6 +24,23 @@
             </thead>
             <tbody>
                 <!-- Recorrer la lista de recetas -->
+                {% for recipe in recipes %}
+                    <tr>
+                        <td>{{recipe.name}}</td>
+                        <td>
+                            {% if recipe.under_30 == 0 %}
+                                NO
+                            {% else %}
+                                SI
+                            {% endif %}
+                        </td>
+                        <td>{{recipe.first_name}}</td>
+                        <td>
+                            <a href="/recipes/show/{{recipe.id}}" class="btn btn-warning">Ver Receta</a>
+                            <!-- Editar y Borrar: SOLO PARA EL CREADOR -->
+                        </td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

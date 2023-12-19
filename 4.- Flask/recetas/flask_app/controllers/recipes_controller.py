@@ -36,3 +36,17 @@ def recipes_create():
     #Guardar la informacion
     Recipe.save(request.form)
     return redirect('/dashboard')
+
+#/recipes/show/3
+@app.route('/recipes/show/<int:id>')
+def recipes_show(id):
+    #Verificar que el usuario haya iniciado sesión
+    if 'user_id' not in session:
+        flash('Favor de iniciar sesión', 'not_in_session')
+        return redirect('/')
+    
+    #Llamar a un método que en base al ID me regrese una instancia de receta
+    diccionario = {"id": id}
+    recipe = Recipe.get_by_id(diccionario)
+
+    return render_template('show.html', recipe=recipe)
