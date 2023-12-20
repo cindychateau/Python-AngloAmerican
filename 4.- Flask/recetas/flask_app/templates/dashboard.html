@@ -24,7 +24,7 @@
             </thead>
             <tbody>
                 <!-- Recorrer la lista de recetas -->
-                {% for recipe in recipes %}
+                {% for recipe in recipes if recipe.date_made <= now().date() %}
                     <tr>
                         <td>{{recipe.name}}</td>
                         <td>
@@ -38,6 +38,46 @@
                         <td>
                             <a href="/recipes/show/{{recipe.id}}" class="btn btn-warning">Ver Receta</a>
                             <!-- Editar y Borrar: SOLO PARA EL CREADOR -->
+                            {% if recipe.user_id == session['user_id'] %}
+                                <a href="/recipes/edit/{{recipe.id}}" class="btn btn-info">Editar Receta</a>
+                                <a href="/recipes/delete/{{recipe.id}}" class="btn btn-danger">Borrar Receta</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <hr>
+        <h2>Recetas Futuras</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nombre de Receta</th>
+                    <th>¿Menos de 30 mins?</th>
+                    <th>Creador</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Recorrer la lista de recetas -->
+                {% for recipe in recipes if recipe.date_made > now().date() %}
+                    <tr>
+                        <td>{{recipe.name}}</td>
+                        <td>
+                            {% if recipe.under_30 == 0 %}
+                                NO
+                            {% else %}
+                                SI
+                            {% endif %}
+                        </td>
+                        <td>{{recipe.first_name}}</td>
+                        <td>
+                            <a href="/recipes/show/{{recipe.id}}" class="btn btn-warning">Ver Receta</a>
+                            <!-- Editar y Borrar: SOLO PARA EL CREADOR -->
+                            {% if recipe.user_id == session['user_id'] %}
+                                <a href="/recipes/edit/{{recipe.id}}" class="btn btn-info">Editar Receta</a>
+                                <a href="/recipes/delete/{{recipe.id}}" class="btn btn-danger">Borrar Receta</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

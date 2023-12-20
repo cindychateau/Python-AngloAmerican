@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, session, flash
 from flask_app import app
+from datetime import datetime
 
 #Importamos todos los modelos
 from flask_app.models.users import User
@@ -51,7 +52,7 @@ def dashboard():
     #Lista de Recetas
     recipes = Recipe.get_all()
 
-    return render_template('dashboard.html', user=user, recipes=recipes)
+    return render_template('dashboard.html', user=user, recipes=recipes, now=datetime.utcnow)
 
 @app.route('/login', methods=['POST'])
 def login():

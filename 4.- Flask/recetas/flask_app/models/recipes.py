@@ -68,4 +68,18 @@ class Recipe:
         #]
         recipe = cls(result[0])
         return recipe
+    
+    @classmethod
+    def update(cls, form):
+        #form = DICCIONARIO que se genera gracias al formulario
+        query = "UPDATE recipes SET name=%(name)s, description=%(description)s, instructions=%(instructions)s, under_30=%(under_30)s, date_made=%(date_made)s WHERE id = %(id)s"
+        result = connectToMySQL('esquema_recetas_aa').query_db(query, form)
+        return result
+    
+    @classmethod
+    def delete(cls, data):
+        #data = {"id": 1}
+        query = "DELETE FROM recipes WHERE id = %(id)s"
+        result = connectToMySQL('esquema_recetas_aa').query_db(query, data)
+        return result
 

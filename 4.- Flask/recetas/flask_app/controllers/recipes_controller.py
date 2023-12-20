@@ -50,3 +50,47 @@ def recipes_show(id):
     recipe = Recipe.get_by_id(diccionario)
 
     return render_template('show.html', recipe=recipe)
+
+@app.route('/recipes/edit/<int:id>')
+def recipes_edit(id):
+    #Verificar que el usuario haya iniciado sesión
+    if 'user_id' not in session:
+        flash('Favor de iniciar sesión', 'not_in_session')
+        return redirect('/')
+    
+    diccionario = {"id": id}
+    recipe = Recipe.get_by_id(diccionario)
+
+    #Verificar que el usuario en sesión sea es usuario que creo receta
+    if recipe.user_id != session['user_id']:
+        return redirect('/dashboard')
+
+    return render_template('edit.html', recipe=recipe)
+
+@app.route('/recipes/update', methods=['POST'])
+def recipes_update():
+    #Verificar que el usuario haya iniciado sesión
+    if 'user_id' not in session:
+        flash('Favor de iniciar sesión', 'not_in_session')
+        return redirect('/')
+    
+    if not Recipe.validate_recipe(request.form):
+        return redirect('/recipes/edit/'+request.form['id'])
+    
+    #Guardar la actualización
+    Recipe.update(request.form)
+    return redirect('/dashboard')
+
+@app.route('/recipes/delete/<int:id>')
+def recipes_delete(id):
+    #Verificar que el usuario haya iniciado sesión
+    if 'user_id' not in session:
+        flash('Favor de iniciar sesión', 'not_in_session')
+        return redirect('/')
+    
+    #Llamar a un método que reciba el ID y borre ese registro
+    diccionario = {"id": id}
+    Recipe.delete(diccionario)
+
+    return redirect('/dashboard')
+    
