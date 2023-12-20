@@ -12,3 +12,19 @@ def new_grade():
         return redirect('/')
     
     return render_template('new.html')
+
+@app.route('/create/grade', methods=['POST'])
+def create_grade():
+    #Verificar que el usuario haya iniciado sesión
+    if 'user_id' not in session:
+        flash('Favor de iniciar sesión', 'not_in_session')
+        return redirect('/')
+    
+    #Validar la Calificación
+    if not Grade.validate_grade(request.form):
+        return redirect('/new/grade')
+    
+    #Guardar la Calificación
+    Grade.save(request.form)
+
+    return redirect('/dashboard')

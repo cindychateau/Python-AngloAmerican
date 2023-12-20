@@ -47,7 +47,11 @@ def dashboard():
     #Función que en base al ID regrese la instancia del usuario
     form = {"id": session['user_id']}
     user = User.get_by_id(form)
-    return render_template('dashboard.html', user=user)
+
+    #Lista de Calificaciones
+    grades = Grade.get_all()
+
+    return render_template('dashboard.html', user=user, grades=grades)
 
 @app.route('/login', methods=['POST'])
 def login():

@@ -14,7 +14,15 @@
             <a href="/logout" class="btn btn-danger">Cerrar Sesión</a>
         </header>
         <!-- MENSAJES DE ERROR -->
-
+        {% with messages = get_flashed_messages(category_filter=['grades']) %}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                        <p>{{message}}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         <!-- FORMULARIO -->
         <form action="/create/grade" method="post">
             <div>
@@ -30,12 +38,12 @@
                 </select>
             </div>
             <div>
-                <label>Fecha de Presentación</label>
+                <label>Fecha de Examen</label>
                 <input type="date" name="date" class="form-control" >
             </div>
             <div>
                 <label>Calificación</label>
-                <input type="number" name="grade" class="form-control" >
+                <input  name="grade" class="form-control" >
             </div>
             <div>
                 <label>Cinturón</label>
