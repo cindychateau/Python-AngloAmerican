@@ -57,3 +57,19 @@ class Grade:
             grades.append(cls(grade)) #1.- cls(grade) crea la instancia en base al diccionario. 2.- grades.append() agrego la instancia a la lista
         
         return grades
+    
+    @classmethod
+    def get_by_id(cls, form):
+        #form = {"id": 1}
+        query = "SELECT * FROM grades WHERE id = %(id)s"
+        result = connectToMySQL('esquema_belt_reviewer').query_db(query, form) #LISTA DE DICCIONARIOS
+        #result = [ {"id": 1, "student": "Juana".....} ]
+        grade = cls(result[0])
+        return grade
+    
+    @classmethod
+    def update(cls, form):
+        #form = {"student": "Juana", "stack": "Python"....., "id": 1}
+        query = "UPDATE grades SET student=%(student)s, stack=%(stack)s, date=%(date)s, grade=%(grade)s, belt=%(belt)s WHERE id=%(id)s"
+        result = connectToMySQL('esquema_belt_reviewer').query_db(query, form)
+        return result
