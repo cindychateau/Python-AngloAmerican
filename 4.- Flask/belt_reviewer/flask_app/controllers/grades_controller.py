@@ -57,3 +57,16 @@ def update_grade():
     #Actualizar el registro
     Grade.update(request.form)
     return redirect('/dashboard')
+
+@app.route('/delete/grade/<int:id>')
+def delete_grade(id):
+    #Verificar que el usuario haya iniciado sesión
+    if 'user_id' not in session:
+        flash('Favor de iniciar sesión', 'not_in_session')
+        return redirect('/')
+    
+    #Borrar
+    form = {"id": id}
+    Grade.delete(form)
+
+    return redirect('/dashboard')

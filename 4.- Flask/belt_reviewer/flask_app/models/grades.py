@@ -15,6 +15,11 @@ class Grade:
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
 
+        #JOIN
+        self.first_name = data['first_name']
+        self.last_name = data['last_name']
+        self.teacher = data['first_name'] + " " + data['last_name']
+
     @staticmethod
     def validate_grade(form):
         is_valid = True
@@ -50,7 +55,7 @@ class Grade:
     
     @classmethod
     def get_all(cls):
-        query = "SELECT * FROM grades"
+        query = "SELECT grades.*, users.first_name, users.last_name FROM grades JOIN users ON user_id = users.id"
         results = connectToMySQL('esquema_belt_reviewer').query_db(query) #Lista de Diccionarios
         grades = []
         for grade in results:
@@ -61,7 +66,7 @@ class Grade:
     @classmethod
     def get_by_id(cls, form):
         #form = {"id": 1}
-        query = "SELECT * FROM grades WHERE id = %(id)s"
+        query = "SELECT grades.*, users.first_name, users.last_name FROM grades JOIN users ON user_id = users.id WHERE grades.id = %(id)s"
         result = connectToMySQL('esquema_belt_reviewer').query_db(query, form) #LISTA DE DICCIONARIOS
         #result = [ {"id": 1, "student": "Juana".....} ]
         grade = cls(result[0])
@@ -71,5 +76,12 @@ class Grade:
     def update(cls, form):
         #form = {"student": "Juana", "stack": "Python"....., "id": 1}
         query = "UPDATE grades SET student=%(student)s, stack=%(stack)s, date=%(date)s, grade=%(grade)s, belt=%(belt)s WHERE id=%(id)s"
+        result = connectToMySQL('esquema_belt_reviewer').query_db(query, form)
+        return result
+    
+    @classmethod
+    def delete(cls, form):
+        #form = {"id": 1}
+        query = "DELETE FROM grades WHERE id = %(id)s"
         result = connectToMySQL('esquema_belt_reviewer').query_db(query, form)
         return result

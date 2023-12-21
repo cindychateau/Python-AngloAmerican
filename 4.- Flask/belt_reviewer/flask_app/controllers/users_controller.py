@@ -9,6 +9,8 @@ from flask_app.models.grades import Grade
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
+from datetime import datetime #Manipular fechas y obtener la fecha actual
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -51,7 +53,7 @@ def dashboard():
     #Lista de Calificaciones
     grades = Grade.get_all()
 
-    return render_template('dashboard.html', user=user, grades=grades)
+    return render_template('dashboard.html', user=user, grades=grades, now=datetime.now)
 
 @app.route('/login', methods=['POST'])
 def login():
