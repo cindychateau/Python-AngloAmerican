@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, session, flash
+from flask import Flask, render_template, redirect, request, session, flash, jsonify
 from flask_app import app
 
 #Importamos todos los modelos
@@ -62,17 +62,20 @@ def login():
     user = User.get_by_email(request.form) #Recibo False o recibo instancia de usuario
 
     if not user: #Si user = False
-        flash('E-mail no registrado', 'login')
-        return redirect('/')
+        # flash('E-mail no registrado', 'login')
+        # return redirect('/')
+        return jsonify(message="E-mail no encontrado")
     
     #Si user es instancia
     #user = OBJETO User .id=1, .first_name="Elena", .last_name ="De Troya"..... .password = "$2asdadjaodiajidjasj"
     if not bcrypt.check_password_hash(user.password, request.form['password']):
-        flash('Password incorrecto', 'login')
-        return redirect('/')
+        # flash('Password incorrecto', 'login')
+        # return redirect('/')
+        return jsonify(message="Password incorrecto")
     
     session['user_id'] = user.id #Guardo en mi sesión el id del usuario
-    return redirect('/dashboard')
+    #return redirect('/dashboard')
+    return jsonify(message="correcto")
 
 @app.route('/logout')
 def logout():
