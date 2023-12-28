@@ -23,7 +23,7 @@
                 </div>
             {% endif %}
         {% endwith %}
-        <form action="/recipes/create" method="post">
+        <form action="/recipes/create" method="post" enctype="multipart/form-data">
             <div>
                 <label for="name">Nombre de la Receta</label>
                 <input type="text" name="name" class="form-control" id="name">
@@ -47,6 +47,10 @@
                 -
                 <input type="radio" name="under_30" id="under30NO" value="0">
                 <label for="under30NO">NO</label>
+            </div>
+            <div>
+                <label>Imagen</label>
+                <input type="file" name="image" class="form-control" accept="image/*" >
             </div>
             <input type="hidden" name="user_id" value="{{session['user_id']}}">
             <input type="submit" class="btn btn-success mt-3" value="Guardar">

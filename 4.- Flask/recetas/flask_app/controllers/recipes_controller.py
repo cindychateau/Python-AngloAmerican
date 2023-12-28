@@ -5,6 +5,10 @@ from flask_app import app
 from flask_app.models.users import User
 from flask_app.models.recipes import Recipe
 
+#Importaciones para subir imágenes
+from werkzeug.utils import secure_filename
+import os
+
 #RUTAS
 
 #1 ruta para desplegar el formulario (Debemos de revisar que se haya iniciado sesión)
@@ -32,9 +36,36 @@ def recipes_create():
     #Verificar que el formulario esté llenado correctamente
     if not Recipe.validate_recipe(request.form):
         return redirect('/recipes/new')
+
+    #Validamos que se haya subido algo
+    if 'image' not in request.files:
+        flash('No seleccionó ninguna imagen', 'recipe')
+        return redirect('/recipes/new')
+    
+    image = request.files['image'] #Variable con la imagen
+    if image.filename == '':
+        flash('Nombre de imagen vacío', 'recipe')
+        return redirect('/recipes/new')
+
+    #Generamos de manera segura el nombre de la imagen
+    nombre_imagen = secure_filename(image.filename)
+
+    #Guardamos la imagen
+    image.save(os.path.join(app.config['UPLOAD_FOLDER'], nombre_imagen))
+
+    #Diccionario con todos los datos del formulario
+    form = {
+        "name": request.form['name'],
+        "description": request.form['description'],
+        "instructions": request.form['instructions'],
+        "date_made": request.form['date_made'],
+        "under_30": request.form['under_30'],
+        "user_id": request.form['user_id'],
+        "image": nombre_imagen
+    }
     
     #Guardar la informacion
-    Recipe.save(request.form)
+    Recipe.save(form)
     return redirect('/dashboard')
 
 #/recipes/show/3

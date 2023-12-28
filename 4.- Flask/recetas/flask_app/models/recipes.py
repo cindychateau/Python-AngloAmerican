@@ -13,6 +13,7 @@ class Recipe:
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
         self.user_id = data['user_id']
+        self.image = data['image'] #El nombre de la imagen
 
         #JOIN
         self.first_name = data['first_name'] #Nombre de la persona que creó la receta
@@ -44,7 +45,7 @@ class Recipe:
     @classmethod
     def save(cls, form):
         #form = {"name": "Albondigas", "description": "Deliciosas albondigas de carne", "instructions"......}
-        query = "INSERT INTO recipes (name, description, instructions, date_made, under_30, user_id) VALUES (%(name)s, %(description)s, %(instructions)s, %(date_made)s, %(under_30)s, %(user_id)s)"
+        query = "INSERT INTO recipes (name, description, instructions, date_made, under_30, user_id, image) VALUES (%(name)s, %(description)s, %(instructions)s, %(date_made)s, %(under_30)s, %(user_id)s, %(image)s)"
         result = connectToMySQL('esquema_recetas_aa').query_db(query, form)
         return result
     
